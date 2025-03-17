@@ -1,28 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
-import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
 import type { User } from '../models/User';
 import { useMutation, useQuery } from '@apollo/client';
 
 const SavedBooks = () => {
-  /*
-  const [userData, setUserData] = useState<User>({
-    username: '',
-    email: '',
-    password: '',
-    savedBooks: [],
-  });
-  */
+  
   //creating useQuery by me
   const { data } = useQuery(QUERY_ME);
   //creating a delete useMutation
   const [ removeBook ] = useMutation(REMOVE_BOOK)
   //changing the value of user
-  const userData: User = data?.me;
+  const userData: User = data?.me || {};
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
@@ -32,24 +23,14 @@ const SavedBooks = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        console.log(data?.me)
+        //console.log(data?.me)
         const token = Auth.loggedIn() ? Auth.getToken() : null;
-        console.log(token)
+        //console.log(token)
         
-
         if (!token) {
           return false;
         }
-
-        const response = await getMe(token);
-
-        if (!response.ok) {
-          throw new Error('something went wrong!');
-        }
-        /*
-        const user = await response.json();
-        setUserData({...data?.me});
-        */
+  
       } catch (err) {
         console.error(err);
       }
@@ -67,14 +48,11 @@ const SavedBooks = () => {
     }
 
     try {
+      
       await removeBook({
         variables: { bookId }
       })
 
-      //const updatedUser = await response.json();
-      //setUserData(updatedUser);
-      // upon success, remove book's id from localStorage
-      //removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
