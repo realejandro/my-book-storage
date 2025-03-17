@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { QUERY_ME } from '../utils/queries';
+import { REMOVE_BOOK } from '../utils/mutations';
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import type { User } from '../models/User';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 const SavedBooks = () => {
   /*
@@ -19,7 +20,7 @@ const SavedBooks = () => {
   //creating useQuery by me
   const { data } = useQuery(QUERY_ME);
   //creating a delete useMutation
-  
+  const [ removeBook ] = useMutation(REMOVE_BOOK)
   //changing the value of user
   const userData: User = data?.me;
 
@@ -66,16 +67,14 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await deleteBook(bookId, token);
+      await removeBook({
+        variables: { bookId }
+      })
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const updatedUser = await response.json();
+      //const updatedUser = await response.json();
       //setUserData(updatedUser);
       // upon success, remove book's id from localStorage
-      removeBookId(bookId);
+      //removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
