@@ -1,254 +1,120 @@
-# 18 MERN: Book Search Engine
+# Book Search Engine README
 
-## Your Task
+## Project Overview
 
-Your assignment this week is emblematic of the fact that most modern websites are driven by two things: data and user demands. This shouldn't come as a surprise, as the ability to personalize user data is the cornerstone of real-world web development today. And as user demands evolve, applications need to be more performant.
+This Book Search Engine allows users to search for books, save their favorite books to an account, and manage their saved books. It includes login and signup functionality for user accounts and provides an interface for searching books via Google Books API. Users can sign up, log in, search for books, save books to their account, and view or remove saved books.
 
-This week, you’ll take starter code with a fully functioning Google Books API search engine built with a RESTful API, and refactor it to be a GraphQL API built with Apollo Server. The app was built using the MERN stack with a React front end, MongoDB database, and Node.js/Express.js server and API. It's already set up to allow users to save book searches to the back end.
+## Features
 
-To complete the assignment, you’ll need to do the following:
+- **Book Search:** Allows users to search for books by entering keywords in an input field and viewing a list of books with titles, authors, descriptions, images, and links to Google Books.
+- **Login/Signup:** Provides options for users to log in or sign up. Once logged in, users can save books to their account and view their saved books.
+- **Saved Books:** Logged-in users can save books to their account and remove them from their saved list.
+- **Responsive Interface:** The application dynamically adjusts based on whether the user is logged in or not, offering different menu options accordingly.
 
-1. Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
+## Functional Requirements
 
-2. Modify the existing authentication middleware so that it works in the context of a GraphQL API.
+### 1. Initial Interface (Not Logged In)
+When the user first loads the site:
+- The menu will show the following options:
+  - **Search for Books**
+  - **Login/Signup**
+- There will also be an input field to search for books and a submit button.
 
-3. Create an Apollo Provider so that requests can communicate with an Apollo Server.
+### 2. Search for Books
+- **Search Field:** Users can enter a search term and click the submit button to search for books.
+- **Results:** If the user is not logged in, they will see a list of books, each with the following details:
+  - Book title
+  - Author name
+  - Book description
+  - Book image
+  - Link to the Google Books site
 
-4. Deploy your application to Render with a MongoDB database using MongoDB Atlas. Use the [Deploy with Render and MongoDB Atlas](https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-render-and-mongodb-atlas) walkthrough for instructions.
+### 3. Login/Signup
+- **Login/Signup Modal:** When the user clicks the Login/Signup menu option, a modal appears that allows the user to toggle between login and signup forms.
+- **Signup Form:** If the toggle is set to Signup, the user will see the following fields:
+  - Username
+  - Email address
+  - Password
+  - Signup button
+- **Login Form:** If the toggle is set to Login, the user will see the following fields:
+  - Email address
+  - Password
+  - Login button
+- **Account Creation (Signup):** When a valid email and password are entered, the user can click on the signup button, and their account will be created, logging them into the site.
+- **User Login:** After entering a valid email address and password, users can log in by clicking the login button, which will close the modal and log the user into the site.
 
-## User Story
+### 4. Menu After Login
+Once logged in, the menu will change to the following options:
+- **Search for Books**
+- **My Saved Books**
+- **Logout**
 
-```md
-AS AN avid reader
-I WANT to search for new books to read
-SO THAT I can keep a list of books to purchase
+### 5. Save and View Books
+- **Save Books:** Logged-in users can save books by clicking the "Save" button on any book search result.
+- **Saved Books Page:** Users can view all books they have saved on the "My Saved Books" page, which displays each saved book’s title, author, description, image, and a link to the Google Books site.
+  - Each saved book will also have a **Remove** button to delete it from the saved list.
+
+### 6. Logout
+- **Logout:** When the user clicks on the Logout button, they will be logged out and the interface will revert to the initial menu with the following options:
+  - **Search for Books**
+  - **Login/Signup**
+  - Input field to search for books
+  - Submit button
+
+## Installation Instructions
+
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+
+### 1. Clone the Repository
+Clone this repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/your-username/book-search-engine.git
 ```
 
-## Acceptance Criteria
+### 2. Install Dependencies
+Navigate to the project directory and run the following command to install all dependencies:
 
-```md
-GIVEN a book search engine
-WHEN I load the search engine
-THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
-WHEN I click on the Search for Books menu option
-THEN I am presented with an input field to search for books and a submit button
-WHEN I am not logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
-WHEN I click on the Login/Signup menu option
-THEN a modal appears on the screen with a toggle between the option to log in or sign up
-WHEN the toggle is set to Signup
-THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
-WHEN the toggle is set to Login
-THEN I am presented with two inputs for an email address and a password and login button
-WHEN I enter a valid email address and create a password and click on the signup button
-THEN my user account is created and I am logged in to the site
-WHEN I enter my account’s email address and password and click on the login button
-THEN the modal closes and I am logged in to the site
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
+```bash
+npm install
 ```
 
-## Mock-Up
+### 3. Start the Development Server
+To start the local development server, run:
 
-Let's start by revisiting the web application's appearance and functionality.
+```bash
+npm start
+```
 
-As you can see in the following animation, a user can type a search term (in this case, "star wars") in a search box and the results appear:
+This will start the application on `http://localhost:3000` by default.
 
-![Animation shows "star wars" typed into a search box and books about Star Wars appearing as results.](./Assets/18-mern-homework-demo-01.gif)
+### 4. Build for Production
+To build the application for production, run:
 
-The user can save books by clicking "Save This Book!" under each search result, as shown in the following animation:
+```bash
+npm run build
+```
 
-![Animation shows user clicking "Save This Book!" button to save books that appear in search results. The button label changes to "Book Already Saved" after it is clicked and the book is saved.](./Assets/18-mern-homework-demo-02.gif)
+This will generate the `build` folder containing the optimized production version of the app.
 
-A user can view their saved books on a separate page, as shown in the following animation:
+## API Integration
 
-![The Viewing Lernantino's Books page shows the books that the user Lernaninto has saved.](./Assets/18-mern-homework-demo-03.gif)
+This project interacts with the **Google Books API** to fetch book data. The search functionality queries this API to display book information, including the title, author, description, and image.
 
-## Getting Started
+## Future Enhancements
 
-In order for this application to use a GraphQL API, you’ll need to refactor the API to use GraphQL on the back end and add some functionality to the front end. The following sections contain details about the files you’ll need to modify on the back and front end.
+- **User Profile:** Allow users to update their profile details (email, username).
+- **Book Ratings:** Enable users to rate and review books.
+- **Search Filters:** Implement advanced search filters such as genre, publication date, etc.
 
-**Important**: Make sure to study the application before building upon it. Better yet, start by making a copy of it. It's already a working application&mdash;you're converting it from RESTful API practices to a GraphQL API.
+## License
 
-### Back-End Specifications
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-You’ll need to complete the following tasks in each of these back-end files:
+## Acknowledgements
 
-* `auth.ts`: Update the auth middleware function to work with the GraphQL API.
-
-* `server.ts`: Implement the Apollo Server and apply it to the Express server as middleware.
-
-* `Schemas` directory:
-
-  * `index.ts`: Export your typeDefs and resolvers.
-
-  * `resolvers.ts`: Define the query and mutation functionality to work with the Mongoose models.
-
-      **Hint**: Use the functionality in the `user-controller.ts` as a guide.
-
-  * `typeDefs.ts`: Define the necessary `Query` and `Mutation` types:
-
-    * `Query` type:
-
-      * `me`: Which returns a `User` type.
-  
-    * `Mutation` type:
-
-      * `login`: Accepts an email and password as parameters; returns an `Auth` type.
-
-      * `addUser`: Accepts a username, email, and password as parameters; returns an `Auth` type.
-
-      * `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. (Look into creating what's known as an `input` type to handle all of these parameters!)
-
-      * `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
-
-    * `User` type:
-
-      * `_id`
-
-      * `username`
-
-      * `email`
-
-      * `bookCount`
-
-      * `savedBooks` (This will be an array of the `Book` type.)
-
-    * `Book` type:
-
-      * `bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
-
-      * `authors` (An array of strings, as there may be more than one author.)
-
-      * `description`
-
-      * `title`
-
-      * `image`
-
-      * `link`
-
-    * `Auth` type:
-
-      * `token`
-
-      * `user` (References the `User` type.)
-
-### Front-End Specifications
-
-You'll need to create the following front-end files:
-
-* `queries.ts`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
-
-* `mutations.ts`:
-
-  * `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
-
-  * `ADD_USER` will execute the `addUser` mutation.
-
-  * `SAVE_BOOK` will execute the `saveBook` mutation.
-
-  * `REMOVE_BOOK` will execute the `removeBook` mutation.
-
-Additionally, you’ll need to complete the following tasks in each of these front-end files:
-
-* `App.tsx`: Create an Apollo Provider to make every request work with the Apollo Server.
-
-* `SearchBooks.tsx`:
-
-  * Use the Apollo `useMutation()` hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function instead of the `saveBook()` function imported from the `API` file.
-
-  * Make sure you keep the logic for saving the book's ID to state in the `try...catch` block!
-
-* `SavedBooks.tsx`:
-
-  * Remove the `useEffect()` hook that sets the state for `UserData`.
-
-  * Instead, use the `useQuery()` hook to execute the `GET_ME` query on load and save it to a variable named `userData`.
-
-  * Use the `useMutation()` hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from the `API` file. (Make sure you keep the `removeBookId()` function in place!)
-
-* `SignupForm.tsx`: Replace the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
-
-* `LoginForm.tsx`: Replace the `loginUser()` functionality imported from the `API` file with the `LOGIN_USER` mutation functionality.
-
-## Grading Requirements
-
-> **Note:** If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count toward your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-  * Has an Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
-
-  * Use an Apollo Server and apply it to the Express.js server as middleware.
-
-  * Include schema settings for resolvers and typeDefs as outlined in the Challenge instructions.
-
-  * Modify the existing authentication middleware to work in the context of a GraphQL API.
-
-  * Use an Apollo Provider so that the application can communicate with the Apollo Server.
-
-  * Application must be deployed to Render.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository contains application code.
-
-### Application Quality: 15%
-
-* User experience is intuitive and easy to navigate.
-
-* User interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains high-quality README file with description, screenshot, and link to the deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
----
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+- Google Books API for providing the data on books.
+- React.js for building the user interface.
