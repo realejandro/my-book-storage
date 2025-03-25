@@ -1,7 +1,7 @@
 import express from 'express';
 import path, { dirname } from 'node:path';
 import db from './config/connection.js';
-//import routes from './routes/index.js';
+
 
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
